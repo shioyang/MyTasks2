@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="shioyang.java_conf.gr.jp.mytasks2" >
+    package="jp.gr.java_conf.shioyang.mytasks2" >
 
     <application
         android:allowBackup="true"

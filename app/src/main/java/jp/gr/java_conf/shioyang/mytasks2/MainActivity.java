@@ -1,4 +1,4 @@
-package shioyang.java_conf.gr.jp.mytasks2;
+package jp.gr.java_conf.shioyang.mytasks2;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -6,24 +6,21 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.tasks.Tasks;
 import com.google.api.services.tasks.TasksScopes;
 
 import java.util.Collections;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String APPLICATION_NAME = "MyTask2/1.0";
 
     private static final int REQUEST_GOOGLE_PLAY_SERVICES = 0;
-    private static final int REQUEST_AUTHORIZATION = 1;
+    public static final int REQUEST_AUTHORIZATION = 1;
     private static final int REQUEST_ACCOUNT_PICKER = 2;
 
     final HttpTransport httpTransport = AndroidHttp.newCompatibleTransport();
@@ -40,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     GoogleAccountCredential credential;
     Tasks service;
 
+    ListView listView;
     ArrayAdapter<String> adapter;
+    List<String> tasksList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Tasks client
         service = new Tasks.Builder(httpTransport, gsonFactory, credential).setApplicationName(APPLICATION_NAME).build();
+
+        // ListView
+        listView = (ListView) findViewById(R.id.listView);
     }
 
     @Override
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         if (credential.getSelectedAccountName() == null) {
             chooseAccount();
         } else {
-//            AsyncLoadTasks.run(this);
+            AsyncLoadTasks.run(this);
         }
     }
 
@@ -119,13 +121,13 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString(PREF_ACCOUNT_NAME, accountName);
                         editor.apply();
-//                        AsyncLoadTasks.run(this);
+                        AsyncLoadTasks.run(this);
                     }
                 }
                 break;
-            case REQUEST_AUTHORIZATION: //???
+            case REQUEST_AUTHORIZATION: // In AsyncLoadTasks, when access right is needed. UserRecoverableException
                 if (resultCode == Activity.RESULT_OK) {
-//                    AsyncLoadTasks.run(this);
+                    AsyncLoadTasks.run(this);
                 } else {
                     chooseAccount();
                 }
@@ -135,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
     // ----------
     void refreshView() {
-//        adapter = new ArrayAdapter<String>(this, R.layout.list_item, tasksList);
-//        listView.setAdapter(adapter);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tasksList);
+        listView.setAdapter(adapter);
     }
 
 //    @Override

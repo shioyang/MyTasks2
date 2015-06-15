@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "shioyang.java_conf.gr.jp.mytasks2"
+        applicationId "jp.gr.java_conf.shioyang.mytasks2"
 //        minSdkVersion 19
         minSdkVersion 15
         targetSdkVersion 22
@@ -44,5 +44,4 @@ dependencies {
     compile 'com.google.apis:google-api-services-oauth2:v2-rev51-1.17.0-rc'
 //    compile 'com.google.apis:google-api-services-plus:v1-rev99-1.17.0-rc'
 //    compile 'com.google.api-client:google-api-client:1.17.0-rc'
-//    compile 'com.google.api-client:google-api-client-android:1.17.0-rc'
 }

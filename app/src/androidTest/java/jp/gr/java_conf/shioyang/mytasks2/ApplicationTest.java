@@ -1,4 +1,4 @@
-package shioyang.java_conf.gr.jp.mytasks2;
+package jp.gr.java_conf.shioyang.mytasks2;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
